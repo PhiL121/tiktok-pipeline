@@ -68,8 +68,8 @@ Ab jetzt entsteht jeden Tag um 7 Uhr automatisch ein neues Video. Auch ohne Teil
 ## Teil 5: Automatisch in deine TikTok-App senden
 
 ### 5a. Webseite einschalten (TikTok verlangt Datenschutz-Seiten)
-1. Öffne im Repo die Dateien `docs/privacy.html` und `docs/terms.html`, tippe auf den Stift und ersetze `[DEIN NAME]`, `[DEINE ADRESSE]`, `[DEINE E-MAIL]`. Speichern mit **Commit changes**.
-2. **Settings > Pages**: bei **Branch** `main` und Ordner `/docs` wählen, **Save**.
+1. Öffne im Repo die Dateien `privacy.html` und `terms.html`, tippe auf den Stift und ersetze `[DEIN NAME]`, `[DEINE ADRESSE]`, `[DEINE E-MAIL]`. Speichern mit **Commit changes**.
+2. **Settings > Pages**: bei **Branch** `main` und Ordner `/ (root)` wählen, **Save**.
 3. Nach 1 bis 2 Minuten ist deine Seite online: `https://DEINNAME.github.io/tiktok-pipeline/`
    (DEINNAME = dein GitHub-Name in Kleinbuchstaben)
 
