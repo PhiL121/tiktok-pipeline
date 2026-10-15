@@ -2,8 +2,8 @@
 
 Jeden Morgen um 7 Uhr passiert automatisch Folgendes:
 
-1. Das Programm schaut, was in Deutschland gerade gesucht wird (Google Trends).
-2. Claude wählt ein Thema, das zu deinem Kanal passt, und recherchiert Fakten im Internet.
+1. Claude denkt sich eine spannende „Was wäre wenn?“-Frage aus (z. B. „What if the Moon disappeared?“).
+2. Claude recherchiert im Internet, was die Wissenschaft dazu sagt, und prüft jede Zahl mit zwei Quellen.
 3. Claude schreibt daraus einen Sprechertext für ein Video über 1 Minute.
 4. Eine KI-Stimme liest den Text vor.
 5. Passende kostenlose Videoclips werden von Pixabay geladen, dazu große Untertitel.
@@ -150,6 +150,7 @@ Unter **Settings > Secrets and variables > Actions > Variables**:
 
 | Variable | Wirkung |
 |---|---|
+| `CONTENT_MODE` | `whatif` (Standard) = jeden Tag ein „Was wäre wenn?“-Video. `trends` = Thema aus den aktuellen Google Trends |
 | `NICHE` | Thema deines Kanals |
 | `TTS_PROVIDER` | `edge` = kostenlose Microsoft-Stimme statt OpenAI (inoffizieller Dienst, ohne Garantie, OpenAI-Schlüssel dann nicht nötig) |
 | `LANGUAGE` / `TRENDS_GEO` | Sprache und Land der Trends, Standard `English` / `US`. Für Deutsch: `Deutsch` / `DE` |

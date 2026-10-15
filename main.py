@@ -50,15 +50,18 @@ def main() -> None:
     config.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     history = load_history()
 
-    print("1/5 Trends holen ...")
-    try:
-        trend_list = trends.fetch_trends()
-    except Exception as exc:  # the feed is unofficial; carry on with web search only
-        print("Google Trends nicht erreichbar:", exc)
-        trend_list = []
+    trend_list = []
+    if config.CONTENT_MODE == "trends":
+        print("1/5 Trends holen ...")
+        try:
+            trend_list = trends.fetch_trends()
+        except Exception as exc:  # the feed is unofficial; carry on with web search only
+            print("Google Trends nicht erreichbar:", exc)
+    else:
+        print("1/5 Zeitloses Thema, keine Trends nötig.")
 
     print("2/5 Thema recherchieren und Skript schreiben ...")
-    notes = script.research_topic(trend_list, [h["topic"] for h in history[-30:]])
+    notes = script.research_topic(trend_list, [h["topic"] for h in history[-200:]])
 
     print("3/5 Stimme erzeugen ...")
     min_words = 170

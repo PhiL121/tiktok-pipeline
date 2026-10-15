@@ -36,6 +36,9 @@ jobs:
           TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
           NICHE: ${{ vars.NICHE }}
+          CONTENT_MODE: ${{ vars.CONTENT_MODE }}
+          LANGUAGE: ${{ vars.LANGUAGE }}
+          TRENDS_GEO: ${{ vars.TRENDS_GEO }}
           TTS_PROVIDER: ${{ vars.TTS_PROVIDER }}
         run: python main.py
 

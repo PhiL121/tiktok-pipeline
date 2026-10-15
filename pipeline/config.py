@@ -8,8 +8,10 @@ OUTPUT_DIR = ROOT / "output"
 MUSIC_DIR = ROOT / "music"
 HISTORY_FILE = ROOT / "data" / "history.json"
 
+# "whatif" = a timeless "What if...?" science video every day; "trends" = current Google Trends topic
+CONTENT_MODE = (os.environ.get("CONTENT_MODE") or "whatif")
 # Channel topic, e.g. "Tech and AI", "History", "Money and saving"
-NICHE = (os.environ.get("NICHE") or "Tech, AI and the internet")
+NICHE = (os.environ.get("NICHE") or ("What if...? science scenarios" if CONTENT_MODE == "whatif" else "Tech, AI and the internet"))
 LANGUAGE = (os.environ.get("LANGUAGE") or "English")
 TRENDS_GEO = (os.environ.get("TRENDS_GEO") or "US")
 

@@ -34,14 +34,37 @@ def research_topic(trends: list[dict], recent_topics: list[str]) -> str:
         + "; ".join(n["title"] for n in t["news"][:2])
         for t in trends
     )
-    prompt = f"""You are researching the topic for a TikTok video on a {config.LANGUAGE}-language channel.
+    covered = chr(10).join("- " + t for t in recent_topics) or "(none yet)"
+    if config.CONTENT_MODE == "whatif":
+        prompt = f"""You are researching a "What if...?" video for a {config.LANGUAGE}-language TikTok channel.
+Channel niche: {config.NICHE}
+
+Questions we already covered, do not repeat or come close:
+{covered}
+
+Task:
+1. Pick ONE gripping "What if...?" question that millions of people would want answered. Mix areas: \
+the human body, space, Earth and nature, animals, technology, everyday life, history. \
+Good examples: "What if the Moon disappeared?", "What if you never slept again?", \
+"What if all insects vanished?", "What if Earth stopped spinning for one second?".
+2. Avoid gore, suicide, self-harm, crime, politics, real private individuals, and anything that reads \
+as medical advice. Body topics are fine as science, not as health tips.
+3. Use web search to research what science actually says: 6 to 10 concrete, surprising facts with numbers, \
+in the order the scenario would unfold (first seconds, hours, days, years). Verify every number against \
+at least two reliable sources (NASA, universities, science journals, major science outlets). \
+Mark clearly which parts are scientific estimates. If unsure, leave the fact out.
+
+Reply with: the question on the first line, then the facts as bullet points in timeline order, \
+then the source URLs."""
+    else:
+        prompt = f"""You are researching the topic for a TikTok video on a {config.LANGUAGE}-language channel.
 Channel niche: {config.NICHE}
 
 Current Google Trends ({config.TRENDS_GEO}):
 {trend_lines or "(no trends available)"}
 
 Topics we already covered, do not repeat:
-{chr(10).join("- " + t for t in recent_topics) or "(none yet)"}
+{covered}
 
 Task:
 1. Pick ONE topic that fits the niche and is current. If no Google trend fits the niche, use web search \
@@ -117,6 +140,9 @@ Rules for a TikTok video that people watch to the end:
 Use concrete numbers and comparisons people can picture.
 - Re-hook every 15 to 20 seconds with a pattern interrupt ("But here's the thing.", "Wait, it gets better.").
 - Give your own take on what it means for the viewer.
+- For a "What if...?" video: tell it as a timeline that escalates ("After 1 second... after 1 hour... \
+after 1 year..."), with the most mind-blowing consequence saved for the payoff. Say clearly when \
+something is a scientific estimate.
 - Deliver the promised payoff near the end.
 - Last sentence: one specific, easy question that invites comments (not "what do you think?"), \
 then "Follow for more." Make the final line flow back into the hook so the video loops well.
