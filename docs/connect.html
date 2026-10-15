@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TikTok verbinden</title>
+<style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px}input,button{font-size:16px;padding:10px;width:100%;box-sizing:border-box;margin:8px 0}</style>
+</head><body>
+<h1>TikTok verbinden</h1>
+<p>Trag deinen <b>Client Key</b> aus dem TikTok-Developer-Portal ein und tippe auf den Knopf.</p>
+<input id="key" placeholder="Client Key">
+<button onclick="go()">Bei TikTok anmelden</button>
+<script>
+function go() {
+  const redirect = new URL("callback.html", location.href).href;
+  const q = new URLSearchParams({client_key: document.getElementById("key").value.trim(),
+    response_type: "code", scope: "user.info.basic,video.upload", redirect_uri: redirect,
+    state: Math.random().toString(36).slice(2)});
+  location.href = "https://www.tiktok.com/v2/auth/authorize/?" + q;
+}
+</script>
+</body></html>

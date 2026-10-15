@@ -1,0 +1,4 @@
+anthropic>=1.15
+requests>=2.31
+openai>=1.40
+edge-tts>=6.1

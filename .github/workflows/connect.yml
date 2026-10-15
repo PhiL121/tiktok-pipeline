@@ -1,0 +1,22 @@
+name: TikTok verbinden
+
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "Code von der Callback-Seite"
+        required: true
+
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q requests
+      - name: Code eintauschen
+        env:
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_CODE: ${{ inputs.code }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: python connect_tiktok.py
