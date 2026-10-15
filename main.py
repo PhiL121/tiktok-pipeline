@@ -15,6 +15,7 @@ def load_history() -> list[dict]:
 
 
 def make_voice(segments: list[dict], work: Path) -> float:
+    segments[:] = [s for s in segments if any(ch.isalnum() for ch in tts.clean(s["text"]))]
     total = 0.0
     for i, seg in enumerate(segments):
         seg["audio"] = work / f"voice_{i:02d}.wav"

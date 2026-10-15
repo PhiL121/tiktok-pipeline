@@ -1,6 +1,8 @@
 """Text to speech, one audio file per sentence."""
 import asyncio
+import re
 import subprocess
+import time
 from pathlib import Path
 
 from . import config
@@ -23,7 +25,23 @@ def _openai_tts(text: str, out: Path) -> None:
 def _edge_tts(text: str, out: Path) -> None:
     import edge_tts
 
-    asyncio.run(edge_tts.Communicate(text, config.EDGE_TTS_VOICE, rate="+5%").save(str(out)))
+    # The free Edge service sometimes returns no audio; retry a few times before giving up.
+    for attempt in range(4):
+        try:
+            asyncio.run(edge_tts.Communicate(text, config.EDGE_TTS_VOICE, rate="+5%").save(str(out)))
+            return
+        except edge_tts.exceptions.NoAudioReceived:
+            if attempt == 3:
+                raise
+            time.sleep(3 * (attempt + 1))
+
+
+def clean(text: str) -> str:
+    """Remove emojis and symbols the voice cannot read."""
+    text = text.replace("…", "...").replace("—", ", ").replace("–", ", ").replace("’", "'")
+    text = text.replace("“", '"').replace("”", '"')
+    text = re.sub(r"[^\w\s.,!?;:'\"()%$€&/+-]", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def duration(path: Path) -> float:
@@ -37,6 +55,7 @@ def duration(path: Path) -> float:
 def speak(text: str, out: Path) -> float:
     """Write speech for `text` to `out` (wav) and return its length in seconds."""
     raw = out.with_suffix(".mp3")
+    text = clean(text)
     if config.TTS_PROVIDER == "edge":
         _edge_tts(text, raw)
     else:
