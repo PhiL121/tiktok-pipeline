@@ -20,6 +20,7 @@ TTS_PROVIDER = (os.environ.get("TTS_PROVIDER") or "openai")
 OPENAI_TTS_VOICE = (os.environ.get("OPENAI_TTS_VOICE") or "onyx")
 EDGE_TTS_VOICE = (os.environ.get("EDGE_TTS_VOICE") or "de-DE-ConradNeural")
 
+PIXABAY_API_KEY = (os.environ.get("PIXABAY_API_KEY") or "")
 PEXELS_API_KEY = (os.environ.get("PEXELS_API_KEY") or "")
 
 TIKTOK_CLIENT_KEY = (os.environ.get("TIKTOK_CLIENT_KEY") or "")

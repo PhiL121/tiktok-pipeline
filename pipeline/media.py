@@ -1,4 +1,4 @@
-"""Download free portrait stock clips from Pexels (free for commercial use)."""
+"""Download free stock clips from Pixabay or Pexels (both free for commercial use)."""
 import random
 import subprocess
 from pathlib import Path
@@ -8,9 +8,31 @@ import requests
 from . import config
 
 API = "https://api.pexels.com/videos/search"
+PIXABAY_API = "https://pixabay.com/api/videos/"
+
+
+def _search_pixabay(query: str) -> list[dict]:
+    """Return results in the same shape as Pexels: {id, video_files: [{link, height, file_type}]}."""
+    resp = requests.get(
+        PIXABAY_API,
+        params={"key": config.PIXABAY_API_KEY, "q": query[:100], "per_page": 20, "safesearch": "true"},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    results = []
+    for hit in resp.json().get("hits", []):
+        files = [
+            {"link": v["url"], "height": v.get("height") or 0, "file_type": "video/mp4"}
+            for v in hit.get("videos", {}).values()
+            if v.get("url")
+        ]
+        results.append({"id": f"pixabay-{hit['id']}", "video_files": files})
+    return results
 
 
 def _search(query: str) -> list[dict]:
+    if config.PIXABAY_API_KEY:
+        return _search_pixabay(query)
     resp = requests.get(
         API,
         headers={"Authorization": config.PEXELS_API_KEY},
@@ -24,17 +46,18 @@ def _search(query: str) -> list[dict]:
 def _best_file(video: dict) -> str | None:
     files = [
         f for f in video.get("video_files", [])
-        if f.get("file_type") == "video/mp4" and (f.get("height") or 0) >= 1280
+        if f.get("file_type") == "video/mp4" and (f.get("height") or 0) >= 720
     ]
     if not files:
         return None
     files.sort(key=lambda f: f.get("height") or 0)
-    return files[0]["link"]  # smallest file that is still HD
+    hd = [f for f in files if (f.get("height") or 0) >= 1080]
+    return (hd or files)[0]["link"]  # smallest file that is still HD
 
 
 def fetch_clip(query: str, out: Path, used_ids: set) -> bool:
     """Download one clip for `query`. Returns False if nothing usable was found."""
-    if not config.PEXELS_API_KEY:
+    if not (config.PIXABAY_API_KEY or config.PEXELS_API_KEY):
         return False
     for q in (query, " ".join(query.split()[:1]), "abstract background"):
         try:

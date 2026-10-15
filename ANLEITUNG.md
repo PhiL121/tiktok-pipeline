@@ -6,7 +6,7 @@ Jeden Morgen um 7 Uhr passiert automatisch Folgendes:
 2. Claude wählt ein Thema, das zu deinem Kanal passt, und recherchiert Fakten im Internet.
 3. Claude schreibt daraus einen Sprechertext für ein Video über 1 Minute.
 4. Eine KI-Stimme liest den Text vor.
-5. Passende kostenlose Videoclips werden von Pexels geladen, dazu große Untertitel.
+5. Passende kostenlose Videoclips werden von Pixabay geladen, dazu große Untertitel.
 6. Das fertige Video landet als **Entwurf in deiner TikTok-App**. Du schaust drüber und postest es.
 
 Du musst einmal etwa 1 bis 2 Stunden einrichten. Danach brauchst du nur noch 2 Minuten am Tag.
@@ -34,7 +34,7 @@ Ein Schlüssel ist wie ein Passwort, mit dem das Programm einen Dienst benutzen 
 |---|---|---|
 | **Claude** (schreibt die Texte) | console.anthropic.com | Konto anlegen, unter **Billing** 10 $ aufladen, unter **API Keys** einen Schlüssel erstellen |
 | **OpenAI** (Stimme) | platform.openai.com | Konto anlegen, unter **Billing** 5 $ aufladen, unter **API keys** einen Schlüssel erstellen |
-| **Pexels** (Videoclips) | pexels.com/api | Kostenlos registrieren, Schlüssel wird sofort angezeigt |
+| **Pixabay** (Videoclips) | pixabay.com | Kostenlos registrieren, dann auf pixabay.com/api/docs/ steht dein Schlüssel bei „key“ |
 
 Tipp: Stell bei Anthropic und OpenAI ein monatliches Limit ein (z. B. 15 $), dann kann nie mehr abgebucht werden.
 
@@ -48,7 +48,7 @@ Unter **Secrets** jeweils **New repository secret**:
 |---|---|
 | `ANTHROPIC_API_KEY` | Claude-Schlüssel |
 | `OPENAI_API_KEY` | OpenAI-Schlüssel |
-| `PEXELS_API_KEY` | Pexels-Schlüssel |
+| `PIXABAY_API_KEY` | Pixabay-Schlüssel |
 
 Dann oben auf den Reiter **Variables** und **New repository variable**:
 
@@ -118,7 +118,7 @@ In GitHub unter **Settings > Secrets and variables > Actions > Secrets**:
 ## Regeln, damit dein Konto sicher bleibt und Geld verdienen kann
 
 - Immer **KI-Kennzeichnung** einschalten.
-- Kein fremdes Material (keine Filmszenen, keine fremden TikToks, keine Charts-Musik). Die Pexels-Clips sind erlaubt.
+- Kein fremdes Material (keine Filmszenen, keine fremden TikToks, keine Charts-Musik). Die Pixabay-Clips sind erlaubt.
 - Lieber 1 gutes Video am Tag als 5 schlechte. Massen-Content wird von TikTok aussortiert.
 - Antworte auf Kommentare. Das zählt für den Algorithmus und zeigt, dass ein Mensch dahintersteht.
 - **Creator Rewards** (Geld von TikTok) gibt es ab 18 Jahren, 10.000 Followern und 100.000 Aufrufen in 30 Tagen, nur für Videos über 1 Minute. Bewerben unter **Profil > Menü > TikTok Studio > Monetarisierung**.
