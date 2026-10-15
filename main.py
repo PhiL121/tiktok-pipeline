@@ -99,8 +99,10 @@ def main() -> None:
 
         tiktok.upload_to_inbox(video)
         print("   Video liegt jetzt als Entwurf in deiner TikTok-App.")
+        print("::notice title=TikTok::Video als Entwurf an TikTok gesendet")
     else:
         print("   Kein TikTok-Zugang eingerichtet, Video nur als Download gespeichert.")
+        print("::warning title=TikTok::Kein TikTok-Zugang, Video nur als Download")
 
     history.append({"date": today, "topic": data["topic"], "seconds": round(total)})
     config.HISTORY_FILE.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
