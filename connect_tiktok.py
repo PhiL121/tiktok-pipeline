@@ -16,8 +16,8 @@ resp = requests.post(
     "https://open.tiktokapis.com/v2/oauth/token/",
     headers={"Content-Type": "application/x-www-form-urlencoded"},
     data={
-        "client_key": os.environ["TIKTOK_CLIENT_KEY"],
-        "client_secret": os.environ["TIKTOK_CLIENT_SECRET"],
+        "client_key": os.environ["TIKTOK_CLIENT_KEY"].strip(),
+        "client_secret": os.environ["TIKTOK_CLIENT_SECRET"].strip(),
         "code": urllib.parse.unquote(os.environ["TIKTOK_CODE"].strip()),
         "grant_type": "authorization_code",
         "redirect_uri": redirect_uri,

@@ -25,8 +25,8 @@ EDGE_TTS_VOICE = (os.environ.get("EDGE_TTS_VOICE") or "en-US-AndrewMultilingualN
 PIXABAY_API_KEY = (os.environ.get("PIXABAY_API_KEY") or "")
 PEXELS_API_KEY = (os.environ.get("PEXELS_API_KEY") or "")
 
-TIKTOK_CLIENT_KEY = (os.environ.get("TIKTOK_CLIENT_KEY") or "")
-TIKTOK_CLIENT_SECRET = (os.environ.get("TIKTOK_CLIENT_SECRET") or "")
+TIKTOK_CLIENT_KEY = (os.environ.get("TIKTOK_CLIENT_KEY") or "").strip()
+TIKTOK_CLIENT_SECRET = (os.environ.get("TIKTOK_CLIENT_SECRET") or "").strip()
 TIKTOK_REFRESH_TOKEN = (os.environ.get("TIKTOK_REFRESH_TOKEN") or "")
 
 MIN_SECONDS = 65  # Creator Rewards needs > 60 s; keep a safety margin
