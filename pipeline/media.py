@@ -30,7 +30,16 @@ def _search_pixabay(query: str) -> list[dict]:
     return results
 
 
+_cache: dict[str, list[dict]] = {}
+
+
 def _search(query: str) -> list[dict]:
+    if query not in _cache:
+        _cache[query] = _search_uncached(query)
+    return _cache[query]
+
+
+def _search_uncached(query: str) -> list[dict]:
     if config.PIXABAY_API_KEY:
         return _search_pixabay(query)
     resp = requests.get(

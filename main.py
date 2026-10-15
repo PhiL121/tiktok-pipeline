@@ -1,5 +1,6 @@
 """Daily run: trend -> script -> voice -> clips -> video -> TikTok inbox."""
 import json
+import math
 import shutil
 from datetime import date
 from pathlib import Path
@@ -23,14 +24,22 @@ def make_voice(segments: list[dict], work: Path) -> float:
 
 
 def make_clips(segments: list[dict], work: Path) -> None:
+    """New clip every ~2.5 s: fast cuts keep viewers watching."""
     used: set = set()
+    n = 0
     for i, seg in enumerate(segments):
-        raw = work / f"raw_{i:02d}.mp4"
-        seg["clip"] = work / f"clip_{i:02d}.mp4"
-        if media.fetch_clip(seg["search"], raw, used):
-            render.normalise_clip(raw, seg["clip"], seg["duration"])
-        else:
-            media.placeholder_clip(seg["clip"], seg["duration"], i)
+        parts = max(1, math.ceil(seg["duration"] / config.MAX_SHOT_SECONDS))
+        length = seg["duration"] / parts
+        seg["clips"] = []
+        for j in range(parts):
+            raw = work / f"raw_{i:02d}_{j}.mp4"
+            clip = work / f"clip_{i:02d}_{j}.mp4"
+            if media.fetch_clip(seg["search"], raw, used):
+                render.normalise_clip(raw, clip, length)
+            else:
+                media.placeholder_clip(clip, length, n)
+            seg["clips"].append(clip)
+            n += 1
 
 
 def main() -> None:
@@ -51,17 +60,20 @@ def main() -> None:
     notes = script.research_topic(trend_list, [h["topic"] for h in history[-30:]])
 
     print("3/5 Stimme erzeugen ...")
-    min_words = 200
+    min_words = 170
     for _ in range(3):
         data = script.write_script(notes, min_words)
         segments = data["segments"]
         total = make_voice(segments, config.WORK_DIR)
         print(f"   Länge: {total:.1f} s")
-        if total >= config.MIN_SECONDS:
+        if config.MIN_SECONDS <= total <= config.MAX_SECONDS:
             break
-        min_words += int(min_words * (config.MIN_SECONDS / total - 1)) + 20
+        # Adjust the word count to the measured speaking speed and try again.
+        target = (config.MIN_SECONDS + config.MAX_SECONDS) / 2
+        min_words = max(120, int(min_words * target / total) - 15)
     else:
-        raise RuntimeError("Video wurde nicht länger als 1 Minute.")
+        if total < config.MIN_SECONDS:
+            raise RuntimeError("Video wurde nicht länger als 1 Minute.")
 
     print("4/5 Clips laden und Video schneiden ...")
     make_clips(segments, config.WORK_DIR)

@@ -42,7 +42,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     t = 0.0
     for seg in segments:
         words = seg["text"].split()
-        speech = max(seg["duration"] - 0.25, 0.5)  # 0.25 s pause padded in tts.py
+        speech = max(seg["duration"] - 0.12, 0.5)  # 0.12 s pause padded in tts.py
         chunks = [words[i:i + 3] for i in range(0, len(words), 3)]
         total_chars = sum(len(" ".join(c)) for c in chunks) or 1
         start = t
@@ -75,7 +75,7 @@ def normalise_clip(src: Path, out: Path, seconds: float) -> None:
 def assemble(segments: list[dict], hook_title: str, work: Path, out: Path) -> None:
     """segments: dicts with text, duration, audio (wav path) and clip (normalised mp4 path)."""
     video_list = work / "videos.txt"
-    video_list.write_text("".join(f"file '{s['clip'].resolve()}'\n" for s in segments))
+    video_list.write_text("".join(f"file '{c.resolve()}'\n" for s in segments for c in s["clips"]))
     audio_list = work / "audios.txt"
     audio_list.write_text("".join(f"file '{s['audio'].resolve()}'\n" for s in segments))
 

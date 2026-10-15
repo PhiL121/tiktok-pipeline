@@ -28,4 +28,6 @@ TIKTOK_CLIENT_SECRET = (os.environ.get("TIKTOK_CLIENT_SECRET") or "")
 TIKTOK_REFRESH_TOKEN = (os.environ.get("TIKTOK_REFRESH_TOKEN") or "")
 
 MIN_SECONDS = 65  # Creator Rewards needs > 60 s; keep a safety margin
+MAX_SECONDS = 95  # shorter videos keep a higher completion rate
+MAX_SHOT_SECONDS = 2.8  # cut to a new clip at least this often
 WIDTH, HEIGHT, FPS = 1080, 1920, 30

@@ -115,6 +115,26 @@ In GitHub unter **Settings > Secrets and variables > Actions > Secrets**:
 
 ---
 
+## Was das Programm automatisch für gute Videos tut
+
+- **Hook in der ersten Sekunde:** Der erste Satz ist der überraschendste Fakt, dazu ein großer Titel oben im Bild.
+- **Spannungsbogen:** Am Anfang wird etwas versprochen („das Beste kommt am Ende“), das erst am Schluss aufgelöst wird.
+- **Alle 15 bis 20 Sekunden ein neuer Aufhänger**, damit niemand weiterwischt.
+- **Schnelle Schnitte:** etwa alle 2 bis 3 Sekunden ein neuer Clip.
+- **Große Untertitel** in der Bildmitte, weil viele ohne Ton schauen.
+- **Keine Pausen** zwischen den Sätzen.
+- **70 bis 95 Sekunden lang:** über 1 Minute für Creator Rewards, aber kurz genug, dass viele bis zum Ende schauen.
+- **Ende mit einer konkreten Frage** für Kommentare, und der letzte Satz führt zurück zum Anfang (Loop).
+- **Beschreibung mit Suchbegriffen**, weil viele TikTok wie eine Suchmaschine nutzen, dazu 3 bis 5 passende Hashtags, kein #fyp.
+
+## Was du selbst tun musst, damit es klappt
+
+- **Zur richtigen Zeit posten:** Für ein US-Publikum am besten zwischen **18 und 22 Uhr deutscher Zeit**.
+- **Jeden Tag posten**, regelmäßig ist wichtiger als perfekt.
+- **In der ersten Stunde auf Kommentare antworten.** Das pusht das Video.
+- **Fakten kurz prüfen** (Quellen in der Textdatei).
+- **Nach 2 Wochen schauen**, welche Videos gut liefen (TikTok Studio > Analysen), und mir Bescheid geben. Dann passe ich Thema oder Stil an.
+
 ## Regeln, damit dein Konto sicher bleibt und Geld verdienen kann
 
 - Immer **KI-Kennzeichnung** einschalten.

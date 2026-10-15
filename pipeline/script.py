@@ -101,24 +101,34 @@ SCRIPT_SCHEMA = {
 }
 
 
-def write_script(notes: str, min_words: int = 200) -> dict:
+def write_script(notes: str, min_words: int = 170) -> dict:
     prompt = f"""Turn these research notes into a voice-over script for a TikTok video in {config.LANGUAGE}.
 Channel niche: {config.NICHE}
 
 Research:
 {notes}
 
-Rules:
-- At least {min_words} and at most {min_words + 50} words in total, so the video runs longer than 1 minute.
-- The first sentence is a strong hook that makes people curious (no clickbait lies).
-- Then 5 to 7 facts, told casually like to a friend, with your own take ("what this means for you").
+Rules for a TikTok video that people watch to the end:
+- Length: at least {min_words} and at most {min_words + 30} words in total (about 70 to 90 seconds).
+- Hook (sentence 1, under 12 words): open with the most surprising fact, a bold claim or a direct \
+"you" question. No greeting, no intro, no "In this video". It must be true, no clickbait lies.
+- Sentence 2 opens a loop: promise a payoff that comes later (e.g. "but the last part is the craziest").
+- Body: 4 to 6 facts, each in 1 to 2 short punchy sentences. Casual spoken language, like telling a friend. \
+Use concrete numbers and comparisons people can picture.
+- Re-hook every 15 to 20 seconds with a pattern interrupt ("But here's the thing.", "Wait, it gets better.").
+- Give your own take on what it means for the viewer.
+- Deliver the promised payoff near the end.
+- Last sentence: one specific, easy question that invites comments (not "what do you think?"), \
+then "Follow for more." Make the final line flow back into the hook so the video loops well.
 - Only use facts from the research. Do not invent anything; copy dates and numbers exactly.
-- End with a question for the comments and "Follow for more".
-- segments: one entry per sentence (short sentences, max 20 words). "search" is 2 to 3 English \
-keywords for matching stock footage (e.g. "smartphone hand", "city night"). No brand names or people.
-- hook_title: max 6 words, shown on screen at the start.
-- caption: TikTok description, max 150 characters.
-- hashtags: 4 to 6 fitting hashtags without #.
+- segments: one entry per sentence (max 18 words). "search" is 2 to 3 concrete, visual English \
+keywords for stock footage that matches what is being said (e.g. "stock market screen", "city night"). \
+No brand names or people's names.
+- hook_title: max 6 words, shown big on screen in the first seconds. Must make people stop scrolling.
+- caption: TikTok description, max 150 characters. Start with the main search keywords people would type \
+into TikTok search (TikTok is a search engine), then a short curiosity line.
+- hashtags: 3 to 5 hashtags without #: 1 to 2 broad (e.g. "tech"), the rest specific to the topic. \
+No "fyp" or "viral".
 - sources: the source URLs from the research."""
     response = _create(
         max_tokens=16000,

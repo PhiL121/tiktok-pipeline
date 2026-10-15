@@ -41,10 +41,10 @@ def speak(text: str, out: Path) -> float:
         _edge_tts(text, raw)
     else:
         _openai_tts(text, raw)
-    # Normalise to wav and add a short pause after each sentence.
+    # Normalise to wav with only a tiny pause: no dead air on TikTok.
     subprocess.run(
         ["ffmpeg", "-y", "-loglevel", "error", "-i", str(raw),
-         "-af", "apad=pad_dur=0.25", "-ar", "44100", "-ac", "2", str(out)],
+         "-af", "apad=pad_dur=0.12", "-ar", "44100", "-ac", "2", str(out)],
         check=True,
     )
     return duration(out)
