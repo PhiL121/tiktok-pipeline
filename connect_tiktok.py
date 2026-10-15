@@ -26,9 +26,14 @@ resp = requests.post(
 )
 data = resp.json()
 if "refresh_token" not in data:
-    raise SystemExit(f"Fehler von TikTok: {data.get('error')} {data.get('error_description')}")
-subprocess.run(
+    msg = f"{data.get('error')} {data.get('error_description')} (HTTP {resp.status_code})"
+    print(f"::error title=TikTok-Fehler::{msg}")
+    raise SystemExit(f"Fehler von TikTok: {msg}")
+saved = subprocess.run(
     ["gh", "secret", "set", "TIKTOK_REFRESH_TOKEN", "--repo", os.environ["GITHUB_REPOSITORY"]],
-    input=data["refresh_token"], text=True, check=True,
+    input=data["refresh_token"], text=True, capture_output=True,
 )
+if saved.returncode != 0:
+    print(f"::error title=Secret speichern fehlgeschlagen (GH_PAT pruefen)::{saved.stderr.strip()}")
+    raise SystemExit(1)
 print(f"TikTok verbunden. Der Zugang gilt ca. {int(data.get('refresh_expires_in', 0)) // 86400} Tage.")
