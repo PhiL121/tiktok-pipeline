@@ -14,7 +14,7 @@ def _openai_tts(text: str, out: Path) -> None:
         model="gpt-4o-mini-tts",
         voice=config.OPENAI_TTS_VOICE,
         input=text,
-        instructions="Sprich lebendig und natürlich wie ein deutscher TikTok-Creator, zügiges Tempo.",
+        instructions=f"Speak {config.LANGUAGE} like an energetic, natural TikTok creator talking to a friend. Upbeat, confident, quick pace, no announcer voice.",
         response_format="mp3",
     ) as resp:
         resp.stream_to_file(out)
@@ -23,7 +23,7 @@ def _openai_tts(text: str, out: Path) -> None:
 def _edge_tts(text: str, out: Path) -> None:
     import edge_tts
 
-    asyncio.run(edge_tts.Communicate(text, config.EDGE_TTS_VOICE, rate="+8%").save(str(out)))
+    asyncio.run(edge_tts.Communicate(text, config.EDGE_TTS_VOICE, rate="+5%").save(str(out)))
 
 
 def duration(path: Path) -> float:

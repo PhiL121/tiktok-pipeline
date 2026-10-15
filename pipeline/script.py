@@ -34,24 +34,25 @@ def research_topic(trends: list[dict], recent_topics: list[str]) -> str:
         + "; ".join(n["title"] for n in t["news"][:2])
         for t in trends
     )
-    prompt = f"""Du recherchierst das Thema für ein TikTok-Video auf einem {config.LANGUAGE}sprachigen Kanal.
-Nische des Kanals: {config.NICHE}
+    prompt = f"""You are researching the topic for a TikTok video on a {config.LANGUAGE}-language channel.
+Channel niche: {config.NICHE}
 
-Aktuelle Google-Trends ({config.TRENDS_GEO}):
-{trend_lines or "(keine Trends verfügbar)"}
+Current Google Trends ({config.TRENDS_GEO}):
+{trend_lines or "(no trends available)"}
 
-Diese Themen hatten wir schon, nicht wiederholen:
-{chr(10).join("- " + t for t in recent_topics) or "(noch keine)"}
+Topics we already covered, do not repeat:
+{chr(10).join("- " + t for t in recent_topics) or "(none yet)"}
 
-Aufgabe:
-1. Wähle EIN Thema, das zur Nische passt und gerade aktuell ist. Passt kein Google-Trend zur Nische, \
-such per Websuche nach einer aktuellen Nachricht der letzten Tage aus der Nische.
-2. Vermeide Themen über Tod, Unglücke, Verbrechen, Politik-Streit, Gesundheit/Medizin-Ratschläge und \
-private Personen. Nichts, was Hass, Angst oder Falschinformation verbreiten könnte.
-3. Recherchiere mit der Websuche 6 bis 10 interessante, überprüfte Fakten dazu.
+Task:
+1. Pick ONE topic that fits the niche and is current. If no Google trend fits the niche, use web search \
+to find a news story from the niche from the last few days.
+2. Avoid topics about death, disasters, crime, divisive politics, health/medical advice and private \
+individuals. Nothing that could spread hate, fear or misinformation.
+3. Use web search to research 6 to 10 interesting facts. Verify every date, number and name against at \
+least two independent sources. If sources disagree or you are unsure, leave the fact out.
 
-Antworte mit: dem gewählten Thema in der ersten Zeile, danach den Fakten als Stichpunkte, \
-danach die Quellen-URLs."""
+Reply with: the chosen topic on the first line, then the verified facts as bullet points, \
+then the source URLs."""
     messages = [{"role": "user", "content": prompt}]
     tools = [{"type": "web_search_20260209", "name": "web_search", "max_uses": 6}]
     response = _create(
@@ -101,24 +102,24 @@ SCRIPT_SCHEMA = {
 
 
 def write_script(notes: str, min_words: int = 200) -> dict:
-    prompt = f"""Schreib aus diesen Recherche-Notizen ein Sprecher-Skript für ein TikTok-Video auf {config.LANGUAGE}.
-Kanal-Nische: {config.NICHE}
+    prompt = f"""Turn these research notes into a voice-over script for a TikTok video in {config.LANGUAGE}.
+Channel niche: {config.NICHE}
 
-Recherche:
+Research:
 {notes}
 
-Regeln:
-- Insgesamt mindestens {min_words} und höchstens {min_words + 50} Wörter, damit das Video über 1 Minute lang ist.
-- Der erste Satz ist ein starker Hook, der neugierig macht (keine Clickbait-Lüge).
-- Danach 5 bis 7 Fakten, locker erzählt wie zu einem Freund, mit eigener Einordnung ("Was das für dich heißt").
-- Nur Fakten aus der Recherche verwenden, nichts erfinden.
-- Am Ende eine Frage an die Zuschauer für Kommentare und "Folg mir für mehr".
-- segments: ein Eintrag pro Satz (kurze Sätze, max. 20 Wörter). "search" sind 2 bis 3 englische \
-Suchbegriffe für passendes Stock-Video (z. B. "smartphone hand", "city night"). Keine Markennamen oder Personen.
-- hook_title: max. 6 Wörter, wird oben im Video eingeblendet.
-- caption: TikTok-Beschreibung, max. 150 Zeichen.
-- hashtags: 4 bis 6 passende Hashtags ohne #.
-- sources: die Quellen-URLs aus der Recherche."""
+Rules:
+- At least {min_words} and at most {min_words + 50} words in total, so the video runs longer than 1 minute.
+- The first sentence is a strong hook that makes people curious (no clickbait lies).
+- Then 5 to 7 facts, told casually like to a friend, with your own take ("what this means for you").
+- Only use facts from the research. Do not invent anything; copy dates and numbers exactly.
+- End with a question for the comments and "Follow for more".
+- segments: one entry per sentence (short sentences, max 20 words). "search" is 2 to 3 English \
+keywords for matching stock footage (e.g. "smartphone hand", "city night"). No brand names or people.
+- hook_title: max 6 words, shown on screen at the start.
+- caption: TikTok description, max 150 characters.
+- hashtags: 4 to 6 fitting hashtags without #.
+- sources: the source URLs from the research."""
     response = _create(
         max_tokens=16000,
         output_config={

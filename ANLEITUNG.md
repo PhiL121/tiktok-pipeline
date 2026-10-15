@@ -54,7 +54,7 @@ Dann oben auf den Reiter **Variables** und **New repository variable**:
 
 | Name | Wert (Beispiel) |
 |---|---|
-| `NICHE` | `Technik, KI und Internet` (oder dein Thema, z. B. `Geld sparen und Finanzen`) |
+| `NICHE` | `Tech, AI and the internet` (oder dein Thema auf Englisch, z. B. `Personal finance and saving money`) |
 
 ## Teil 4: Erstes Testvideo
 
@@ -132,6 +132,7 @@ Unter **Settings > Secrets and variables > Actions > Variables**:
 |---|---|
 | `NICHE` | Thema deines Kanals |
 | `TTS_PROVIDER` | `edge` = kostenlose Microsoft-Stimme statt OpenAI (inoffizieller Dienst, ohne Garantie, OpenAI-Schlüssel dann nicht nötig) |
+| `LANGUAGE` / `TRENDS_GEO` | Sprache und Land der Trends, Standard `English` / `US`. Für Deutsch: `Deutsch` / `DE` |
 
 Uhrzeit ändern: in `.github/workflows/daily.yml` die Zeile `cron: "0 5 * * *"` (05:00 UTC = 7 Uhr Sommerzeit, 6 Uhr Winterzeit).
 

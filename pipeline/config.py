@@ -8,17 +8,17 @@ OUTPUT_DIR = ROOT / "output"
 MUSIC_DIR = ROOT / "music"
 HISTORY_FILE = ROOT / "data" / "history.json"
 
-# Channel topic, e.g. "Technik und KI", "Geschichte", "Geld und Sparen"
-NICHE = (os.environ.get("NICHE") or "Technik, KI und Internet")
-LANGUAGE = (os.environ.get("LANGUAGE") or "Deutsch")
-TRENDS_GEO = (os.environ.get("TRENDS_GEO") or "DE")
+# Channel topic, e.g. "Tech and AI", "History", "Money and saving"
+NICHE = (os.environ.get("NICHE") or "Tech, AI and the internet")
+LANGUAGE = (os.environ.get("LANGUAGE") or "English")
+TRENDS_GEO = (os.environ.get("TRENDS_GEO") or "US")
 
 CLAUDE_MODEL = (os.environ.get("CLAUDE_MODEL") or "claude-opus-5-5")
 
 # "openai" (official, ~1 €/month) or "edge" (free, unofficial Microsoft Edge voice service)
 TTS_PROVIDER = (os.environ.get("TTS_PROVIDER") or "openai")
-OPENAI_TTS_VOICE = (os.environ.get("OPENAI_TTS_VOICE") or "onyx")
-EDGE_TTS_VOICE = (os.environ.get("EDGE_TTS_VOICE") or "de-DE-ConradNeural")
+OPENAI_TTS_VOICE = (os.environ.get("OPENAI_TTS_VOICE") or "ash")
+EDGE_TTS_VOICE = (os.environ.get("EDGE_TTS_VOICE") or "en-US-AndrewMultilingualNeural")
 
 PIXABAY_API_KEY = (os.environ.get("PIXABAY_API_KEY") or "")
 PEXELS_API_KEY = (os.environ.get("PEXELS_API_KEY") or "")
