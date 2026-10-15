@@ -103,4 +103,12 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as exc:
+        # Shows up as an annotation on the GitHub Actions run, readable without opening the log.
+        import traceback
+
+        tb = traceback.format_exc().strip().splitlines()
+        print(f"::error title=Video fehlgeschlagen::{type(exc).__name__}: {exc} | " + " | ".join(tb[-6:]))
+        raise
