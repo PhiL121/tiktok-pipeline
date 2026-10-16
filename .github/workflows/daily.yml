@@ -2,7 +2,7 @@ name: Tägliches TikTok-Video
 
 on:
   schedule:
-    - cron: "0 5 * * *"   # jeden Tag 05:00 UTC = 7:00 Uhr deutsche Sommerzeit
+    - cron: "23 4 * * *"   # 04:23 UTC (nicht zur vollen Stunde, da GitHub dann oft stark verzögert); Video ist so vor 7 Uhr deutscher Zeit fertig
   workflow_dispatch: {}    # "Run workflow"-Knopf zum Testen
 
 permissions:
